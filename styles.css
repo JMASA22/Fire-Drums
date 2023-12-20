@@ -1,64 +1,86 @@
+.glow {
+  font-size: 6rem;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 20px #ff1a1a, 0 0 40px #ff1a1a, 0 0 20px #ff1a1a, 0 0 60px #ff1a1a, 0 0 100px #ff1a1a;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff1a1a, 0 0 20px #ff1a1a, 0 0 50px #ff1a1a, 0 0 60px #ff1a1a, 0 0 70px #ff1a1a, 0 0 100px #ff1a1a;
+  }
+}
+
 body {
   text-align: center;
-  background-color: #283149;
+  background-image: url("./images/fons-focs-v3.gif");
+  background-size: cover;
+}
+
+.any{
+  font-size: 9rem;
+  margin: 0px 50px 0px 50px;
+  text-shadow: 2px 2px 12px rgb(233, 35, 35), -6px -6px 12px blue;
+  font-family: 'Playfair Display SC', serif;
+  color: #3ae45c;
+  text-align: center;
 }
 
 h1 {
-  font-size: 5rem;
-  color: #DBEDF3;
-  font-family: "Arvo", cursive;
-  text-shadow: 3px 0 #DA0463;
-
+  margin-bottom: 0;
+  color: #ffffff;
+  font-family: 'Playfair Display SC', serif;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  margin: 30px 50px 0px 50px;
   color: #DBEDF3;
-  font-family: "Arvo", cursive;
-  text-shadow: 1px 0 #c595ab;
+  font-family: 'Afacad', sans-serif;
 
 }
 
 footer {
   color: #DBEDF3;
-  font-family: sans-serif;
+  font-size: 1.4rem;
+  font-family: 'Afacad', sans-serif;
+}
+
+.f {
+  background-image: url("./images/f.gif")
+}
+
+.i {
+  background-image: url("./images/i.gif")
+}
+
+.r {
+  background-image: url("./images/r.gif")
+}
+
+.e {
+  background-image: url("./images/e.gif")
 }
 
 .w {
-  background-image: url("./images/crash.png")
+  background-image: url("./images/w.gif")
 }
 
-.a {
-  background-image: url("./images/kick.png")
-}
-
-.s {
-  background-image: url("./images/snare.png")
-}
-
-.d {
-  background-image: url("./images/tom1.png")
-}
-
-.j {
-  background-image: url("./images/tom2.png")
+.o {
+  background-image: url("./images/o.gif")
 }
 
 .k {
-  background-image: url("./images/tom3.png")
-}
-
-.l {
-  background-image: url("./images/tom4.png")
+  background-image: url("./images/k.gif")
 }
 
 .set {
-  margin: 10% auto;
-}
-
-.game-over {
-  background-color: red;
-  opacity: 0.8;
+  margin: 5% auto;
 }
 
 .pressed {
@@ -66,19 +88,15 @@ footer {
   opacity: 0.3;
 }
 
-.red {
-  color: red;
-}
-
 .drum {
-  outline: none;
-  border: 10px solid #404B69;
-  font-size: 5rem;
-  font-family: 'Arvo', cursive;
+  display: grid;
+  place-items: center;outline: none;
+  font-size: 4rem;
+  font-family: 'Playfair Display SC', serif;
   line-height: 2;
-  font-weight: 900;
-  color: #DA0463;
-  text-shadow: 3px 0 #DBEDF3;
+  font-weight: 200;
+  color: #ff1a1a;
+  text-shadow: rgb(235, 255, 232) 5px 0 10px;
   border-radius: 15px;
   display: inline-block;
   width: 150px;

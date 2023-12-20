@@ -1,24 +1,3 @@
-/* 
-
-document.querySelector ("button").addEventListener("click", ferClick);
-// no posem els parèntesis darera de la funció per cridar-la - No: ferClick() Sí:ferClick
-// primer parametre el type (aquí click)
-// el segon és el listener aquel que cridarà per fer l'acció (aquí funció ferClick)
-
-function ferClick(){
-    alert("He fet click");
-}
-
-amb funció anònima fa el mateix:
-
-document.querySelector ("button").addEventListener("click", function (){
-    alert("He fet click");
-});
-
-*/
-
-//pq surti alerta a tots el botons no només el primer comencem amb un bucle "for" - sempre comença amb: var i=0; i< el q sigui , i++
-
 //DETECTAR BOTÓ/TECLA Q CLICAREM:
 var numBotons = document.querySelectorAll(".drum").length;
 //var audio = new Audio ("sounds/tom-1.mp3");
@@ -40,48 +19,33 @@ document.addEventListener ("keypress", function(event) {
     ferSoroll(event.key);
     teclaAnimacio(event.key);
     // passem el mateix paràmetre (event.key) pq faci referència la mateixa acció (tecla que cliquem)
-
+    // iniciar gif 
+    if (event.key) {
+        var gifF = document.getElementById('gifF');
+        gifF.src = "./images/f.gif";
+    }
 });
-
-// Crear nova funció activar audio (ferSoroll)
-// var audio = new Audio ("sounds/tom-1.mp3");
-// audio.play();
 
 function ferSoroll (key){
     switch (key) { // la cosa q
-        case "w":
-            var crash = new Audio ("sounds/crash.mp3");
-            crash.play();
+        case "f":
+            var f = new Audio ("sounds/crash.mp3");
+            f.play();f
             break;
         
-        case "a":
-            var kick = new Audio ("sounds/kick-bass.mp3");
-            kick.play();
+        case "i":
+            var i = new Audio ("sounds/kick-bass.mp3");
+            i.play();
             break;
 
-        case "s":
-            var snare = new Audio ("sounds/snare.mp3");
-            snare.play();
+        case "r":
+            var r = new Audio ("sounds/snare.mp3");
+            r.play();
             break;
         
-        case "d":
-            var tom1 = new Audio ("sounds/tom-1.mp3");
-            tom1.play();
-            break;
-        
-        case "j":
-            var tom2 = new Audio ("sounds/tom-2.mp3");
-            tom2.play();
-            break;
-        
-        case "k":
-            var tom3 = new Audio ("sounds/tom-3.mp3");
-            tom3.play();
-            break;
-
-        case "l":
-            var tom4 = new Audio ("sounds/tom-4.mp3");
-            tom4.play();
+        case "e":
+            var e = new Audio ("sounds/tom-1.mp3");
+            e.play();
             break;
         
         default: console.log (botoInnerHTml); //bona practica
@@ -91,7 +55,6 @@ function ferSoroll (key){
 }
 
 // Crear funció activar tecla clicada (teclaAnimacio)
-
 function teclaAnimacio (teclaClicada) { // ara q ja tenim aquest valor "teclaClicada" aquí el podem utilitzar per generar l'animació
     var teclaActiva = document.querySelector ("." + teclaClicada); 
     // ara que ja hem "trobat el botó q clicarem ("document.querySelector ("." + teclaClicada)")
