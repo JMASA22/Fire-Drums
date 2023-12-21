@@ -51,78 +51,7 @@ footer {
   font-family: 'Afacad', sans-serif;
 }
 
-.f {
-  background-image: url("./images/f.gif")
-}
-
-.i {
-  background-image: url("./images/i.gif")
-}
-
-.r {
-  background-image: url("./images/r.gif")
-}
-
-.e {
-  background-image: url("./images/e.gif")
-}
-
-.w {
-  background-image: url("./images/w.gif")
-}
-
-.o {
-  background-image: url("./images/o.gif")
-}
-
-.k {
-  background-image: url("./images/k.gif")
-}
-
-.s {
-  background-image: url("./images/s.gif")
-}
-
-.show-s-background .f {
-  display: block;
-}
-
-.show-s-background .i {
-  display: block;
-}
-
-.show-s-background .r {
-  display: block;
-}
-
-.show-s-background .e {
-  display: block;
-}
-
-.show-s-background .w {
-  display: block;
-}
-
-.show-s-background .o {
-  display: block;
-}
-
-.show-s-background .k {
-  display: block;
-}
-
-.show-s-background .s {
-  display: block;
-}
-
-.set {
-  margin: 5% auto;
-}
-
-.pressed {
-  opacity: 0.5;
-}
-
+/* Estils per als elements .gif .f, .i, .r, .e, .w, .o, .k, .s */
 .drum {
   border: 2px dashed #ff1a1a;
   display: grid;
@@ -138,4 +67,63 @@ footer {
   height: 150px;
   text-align: center;
   margin: 10px;
+}
+
+.f {
+  background:#69c77b49
+}
+
+.i {
+  background:#c769b449
+}
+
+.r {
+  background:#acc76949
+}
+
+.e {
+  background:#696fc749
+}
+
+.w {
+  background:#69c7a349
+}
+
+.o {
+  background:#c7696949
+}
+
+.k {
+  background:#69bec749
+}
+
+.s {
+  background:#8d3a9149
+}
+
+.set {
+  margin: 5% auto;
+}
+
+.pressed {
+  opacity: 0.5;
+}
+
+.gif-loop {
+  animation: teclaAnimacio 2s infinite;
+}
+
+@keyframes teclaAnimacio {
+  0% {
+    opacity: 0; /* Inicia amb opacitat 0 */
+    transform: scale(0.5); /* Escalat més petit */
+  }
+  50% {
+    opacity: 1; /* Arriba a la opacitat completa al mig de l'animació */
+    transform: scale(1); /* Escalat original */
+  }
+  100% {
+    opacity: 0; /* Torna a la opacitat 0 al final de l'animació */
+    transform: scale(0.5); /* Escalat més petit */
+  }
 }

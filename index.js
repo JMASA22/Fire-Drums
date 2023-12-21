@@ -1,8 +1,8 @@
-var fireworks = ["f", "i", "r", "e", "w", "o", "k", "s"];
+var fireworks = ["f", "i", "r", "e", "w", "o", "r", "k", "s"];
 
 var gifCounters = {};
 
-// Preload de audio
+// precàrrega de l'audio
 var audioFiles = {
     f: new Audio("sounds/crash.mp3"),
     i: new Audio("sounds/kick-bass.mp3"),
@@ -14,22 +14,35 @@ var audioFiles = {
     s: new Audio("sounds/tom-3.mp3")
 };
 
-// Detectar clics als botons
-var numBotons = document.querySelectorAll(".drum").length;
+var buttonStates = {
+    f: false,
+    i: false,
+    r: false,
+    e: false,
+    w: false,
+    o: false,
+    k: false,
+    s: false
+  };
 
-for (var i = 0; i < numBotons; i++) {
-    document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+// Detectar clics als botons
+var buttons = document.querySelectorAll(".drum");
+
+// Només canvia si l'estat es actiu
+buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
         var buttonInnerHtml = this.innerHTML;
-        console.log("Botó clicat:", buttonInnerHtml);
         ferSoroll(buttonInnerHtml);
         teclaAnimacio(buttonInnerHtml);
+        toggleImage(buttonInnerHtml);
     });
-}
+});
 
 // Detectar clics de teclat
 document.addEventListener("keydown", function (event) {
     ferSoroll(event.key);
     teclaAnimacio(event.key);
+    toggleImage(event.key);
 });
 
 function ferSoroll(key) {
@@ -41,48 +54,32 @@ function ferSoroll(key) {
     }
 }
 
+// Funció per canviar la visibilibiitat de la img i el fons del botó
+function toggleImage(key) {
+    var image = document.getElementById("gif" + key.toUpperCase());
+    var button = document.querySelector("." + key);
+
+    // Cambia la visibilidad de la imagen només al botó clicat
+    if (image.style.display === "none" || image.style.display === "") {
+        image.style.display = "block";
+        button.style.backgroundImage = "url('" + image.src + "')";
+        buttonStates[key.toLowerCase()] = true; // estat actiu
+    } else {
+        image.style.display = "none";
+        button.style.backgroundImage = "none";
+        buttonStates[key.toLowerCase()] = false; // estat inactiu
+    }
+}
+
 function teclaAnimacio(teclaClicada) {
     console.log("Animant tecla:", teclaClicada);
     var teclaActiva = document.querySelector("." + teclaClicada);
-    teclaActiva.classList.add("pressed");
-
-    // Verificar si la tecla clicada está en el array fireworks
-    if (fireworks.includes(teclaClicada)) {
-        // Obtener el contador de la tecla actual
-        var counter = gifCounters[teclaClicada] || 0;
-
-        // Obtener todos los elementos con la clase .gif y la tecla clicada
-        var gifElements = document.querySelectorAll("." + teclaClicada + ".gif");
-
-        // Iterar sobre los elementos .gif y agregar la clase para activar el bucle
-        gifElements.forEach(function (gifElement, index) {
-            // Agregar lógica para reproducir el GIF solo si es la primera vez o el contador actual
-            // es igual al índice actual
-            if (counter === index) {
-                gifElement.classList.add("gif-loop");
-
-                // Agregar lógica para reproducir el GIF
-                var gifSrc = gifElement.style.backgroundImage.replace(/url\(["']?(.*?)["']?\)/, "$1");
-                var img = new Image();
-                img.src = gifSrc;
-                img.onload = function () {
-                    gifElement.style.backgroundImage = "url('" + gifSrc + "')";
-                };
-            }
-        });
-
-        // Incrementar el contador para la siguiente vez
-        gifCounters[teclaClicada] = (counter + 1) % gifElements.length;
-
-        setTimeout(function () {
-            // Iterar sobre los elementos .gif y quitar la clase para detener el bucle
-            gifElements.forEach(function (gifElement) {
-                gifElement.classList.remove("gif-loop");
-            });
-        }, 100);
-    }
-
-    setTimeout(function () {
+    
+    if (teclaActiva) {
+      teclaActiva.classList.add("pressed");
+    };
+  
+      setTimeout(function () {
         teclaActiva.classList.remove("pressed");
-    }, 100);
-}
+      }, 200);
+    }
