@@ -1,69 +1,88 @@
-//DETECTAR BOTÓ/TECLA Q CLICAREM:
+var fireworks = ["f", "i", "r", "e", "w", "o", "k", "s"];
+
+var gifCounters = {};
+
+// Preload de audio
+var audioFiles = {
+    f: new Audio("sounds/crash.mp3"),
+    i: new Audio("sounds/kick-bass.mp3"),
+    r: new Audio("sounds/snare.mp3"),
+    e: new Audio("sounds/tom-1.mp3"),
+    w: new Audio("sounds/crash.mp3"),
+    o: new Audio("sounds/tom-2.mp3"),
+    k: new Audio("sounds/crash.mp3"),
+    s: new Audio("sounds/tom-3.mp3")
+};
+
+// Detectar clics als botons
 var numBotons = document.querySelectorAll(".drum").length;
-//var audio = new Audio ("sounds/tom-1.mp3");
-//audio.play();
 
-for (var i=0; i<numBotons; i++){
-
-    document.querySelectorAll (".drum")[i].addEventListener("click", function (){
-        
-        var bottonInnerHtml = this.innerHTML; // this. és el botó q clicarem
-        ferSoroll (bottonInnerHtml);
-        teclaAnimacio (bottonInnerHtml);
-
+for (var i = 0; i < numBotons; i++) {
+    document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+        var buttonInnerHtml = this.innerHTML;
+        console.log("Botó clicat:", buttonInnerHtml);
+        ferSoroll(buttonInnerHtml);
+        teclaAnimacio(buttonInnerHtml);
     });
-}         
-
-//DETECTAR TECLA CLICADA
-document.addEventListener ("keypress", function(event) {
-    ferSoroll(event.key);
-    teclaAnimacio(event.key);
-    // passem el mateix paràmetre (event.key) pq faci referència la mateixa acció (tecla que cliquem)
-    // iniciar gif 
-    if (event.key) {
-        var gifF = document.getElementById('gifF');
-        gifF.src = "./images/f.gif";
-    }
-});
-
-function ferSoroll (key){
-    switch (key) { // la cosa q
-        case "f":
-            var f = new Audio ("sounds/crash.mp3");
-            f.play();f
-            break;
-        
-        case "i":
-            var i = new Audio ("sounds/kick-bass.mp3");
-            i.play();
-            break;
-
-        case "r":
-            var r = new Audio ("sounds/snare.mp3");
-            r.play();
-            break;
-        
-        case "e":
-            var e = new Audio ("sounds/tom-1.mp3");
-            e.play();
-            break;
-        
-        default: console.log (botoInnerHTml); //bona practica
-        
-    }
-
 }
 
-// Crear funció activar tecla clicada (teclaAnimacio)
-function teclaAnimacio (teclaClicada) { // ara q ja tenim aquest valor "teclaClicada" aquí el podem utilitzar per generar l'animació
-    var teclaActiva = document.querySelector ("." + teclaClicada); 
-    // ara que ja hem "trobat el botó q clicarem ("document.querySelector ("." + teclaClicada)")
-    // li assignem  una variable "botoActivat" - Aquest és el botó q canviarem als estils (CSS)
-    // com afegir una classe a un element utilitzant JS: (amb .classList)
+// Detectar clics de teclat
+document.addEventListener("keydown", function (event) {
+    ferSoroll(event.key);
+    teclaAnimacio(event.key);
+});
+
+function ferSoroll(key) {
+    console.log("Reproduint so per a la tecla:", key);
+    if (audioFiles[key]) {
+        audioFiles[key].play();
+    } else {
+        console.log("Tecla no reconeguda: " + key);
+    }
+}
+
+function teclaAnimacio(teclaClicada) {
+    console.log("Animant tecla:", teclaClicada);
+    var teclaActiva = document.querySelector("." + teclaClicada);
     teclaActiva.classList.add("pressed");
-    
-    // tornar a l'original (opacitat normal un cop clicada la tecla) amb "setTimeout"
-    setTimeout (function(){
+
+    // Verificar si la tecla clicada está en el array fireworks
+    if (fireworks.includes(teclaClicada)) {
+        // Obtener el contador de la tecla actual
+        var counter = gifCounters[teclaClicada] || 0;
+
+        // Obtener todos los elementos con la clase .gif y la tecla clicada
+        var gifElements = document.querySelectorAll("." + teclaClicada + ".gif");
+
+        // Iterar sobre los elementos .gif y agregar la clase para activar el bucle
+        gifElements.forEach(function (gifElement, index) {
+            // Agregar lógica para reproducir el GIF solo si es la primera vez o el contador actual
+            // es igual al índice actual
+            if (counter === index) {
+                gifElement.classList.add("gif-loop");
+
+                // Agregar lógica para reproducir el GIF
+                var gifSrc = gifElement.style.backgroundImage.replace(/url\(["']?(.*?)["']?\)/, "$1");
+                var img = new Image();
+                img.src = gifSrc;
+                img.onload = function () {
+                    gifElement.style.backgroundImage = "url('" + gifSrc + "')";
+                };
+            }
+        });
+
+        // Incrementar el contador para la siguiente vez
+        gifCounters[teclaClicada] = (counter + 1) % gifElements.length;
+
+        setTimeout(function () {
+            // Iterar sobre los elementos .gif y quitar la clase para detener el bucle
+            gifElements.forEach(function (gifElement) {
+                gifElement.classList.remove("gif-loop");
+            });
+        }, 100);
+    }
+
+    setTimeout(function () {
         teclaActiva.classList.remove("pressed");
     }, 100);
 }
