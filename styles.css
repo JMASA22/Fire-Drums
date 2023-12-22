@@ -52,54 +52,48 @@ footer {
 }
 
 /* Estils per als elements .gif .f, .i, .r, .e, .w, .o, .k, .s */
+.drum-container {
+  display: flex;
+  flex-direction: column; /* Canviat a column per disposició vertical */
+  align-items: center;
+  justify-content: center;
+}
+
 .drum {
+  background-position: center center;
   border: 2px dashed #ff1a1a;
-  display: grid;
-  place-items: center;
   font-size: 3.5rem;
   font-family: 'Playfair Display SC', serif;
-  line-height: 8;
+  line-height: 1.2;
   color: #ff1a1a;
   text-shadow: rgb(0, 0, 0) 5px 5px 10px;
   border-radius: 15px;
-  display: inline-block;
   width: 150px;
   height: 150px;
   text-align: center;
-  margin: 10px;
+  cursor: pointer;
 }
 
-.f {
-  background:#69c77b49
+.gif, .f, .i, .r, .e, .w, .o, .k, .s {
+  vertical-align: middle;
+  max-width: 150px; /* Afegit per limitar l'amplada màxima */
+  border-radius: 20px;
 }
 
-.i {
-  background:#c769b449
+
+button img {
+  display: none; /* Oculta les imatges contingudes dins dels botons */
 }
 
-.r {
-  background:#acc76949
-}
+.f { background: #69c77b49; }
+.i { background: #c769b449; }
+.r { background: #acc76949; }
+.e { background: #696fc749; }
+.w { background: #69c7a349; }
+.o { background: #c7696949; }
+.k { background: #69bec749; }
+.s { background: #8d3a9149; }
 
-.e {
-  background:#696fc749
-}
-
-.w {
-  background:#69c7a349
-}
-
-.o {
-  background:#c7696949
-}
-
-.k {
-  background:#69bec749
-}
-
-.s {
-  background:#8d3a9149
-}
 
 .set {
   margin: 5% auto;

@@ -32,7 +32,7 @@ var buttons = document.querySelectorAll(".drum");
 buttons.forEach(function (button) {
     button.addEventListener("click", function () {
         var buttonInnerHtml = this.innerHTML;
-        ferSoroll(buttonInnerHtml);
+        playAudio(buttonInnerHtml);
         teclaAnimacio(buttonInnerHtml);
         toggleImage(buttonInnerHtml);
     });
@@ -40,34 +40,43 @@ buttons.forEach(function (button) {
 
 // Detectar clics de teclat
 document.addEventListener("keydown", function (event) {
-    ferSoroll(event.key);
+    playAudio(event.key);
     teclaAnimacio(event.key);
     toggleImage(event.key);
 });
 
-function ferSoroll(key) {
-    console.log("Reproduint so per a la tecla:", key);
+function playAudio(key) {
     if (audioFiles[key]) {
         audioFiles[key].play();
+        toggleImage(key);
+        teclaAnimacio(key);
     } else {
-        console.log("Tecla no reconeguda: " + key);
+        console.error("Tecla no reconeguda: " + key);
+        // Potser mostrar alguna retroacció a l'usuari aquí, com un missatge d'error o una alerta
     }
 }
 
 // Funció per canviar la visibilibiitat de la img i el fons del botó
 function toggleImage(key) {
-    var image = document.getElementById("gif" + key.toUpperCase());
     var button = document.querySelector("." + key);
+    var image = button.querySelector(".gif");
 
-    // Cambia la visibilidad de la imagen només al botó clicat
+    // Mostra la imatge tant si es fa clic com si es prem una tecla
     if (image.style.display === "none" || image.style.display === "") {
         image.style.display = "block";
         button.style.backgroundImage = "url('" + image.src + "')";
-        buttonStates[key.toLowerCase()] = true; // estat actiu
-    } else {
-        image.style.display = "none";
-        button.style.backgroundImage = "none";
-        buttonStates[key.toLowerCase()] = false; // estat inactiu
+
+        // Reprodueix l'àudio associat
+        if (audioFiles[key]) {
+            audioFiles[key].play();
+
+            // Escolta l'esdeveniment 'ended' de l'àudio per amagar la imatge quan finalitza
+            audioFiles[key].addEventListener('ended', function() {
+                image.style.display = 'none';
+                button.style.backgroundImage = "none";
+                buttonStates[key.toLowerCase()] = false; // Estat inactiu
+            });
+        }
     }
 }
 
